@@ -11,6 +11,17 @@ pipeline{
           sh 'cd spring-boot-app && mvn clean package'
         }
       }
+      stage("Static Code Analysis"){
+        environment{
+          SONAR_URL = "http://35.234.240.149:9000"
+        }
+        steps{
+          withCredentials([string(credentialsId: 'sonartoken', variable: 'sonar-token')]) {
+            sh 'cd spring-boot-app && mvn sonar:sonar -Dsonar.login=$sonar-token -Dsonar.host_url=$"{SONAR_URL}'
+          }
+        }
+
+      }
     }
 }
      
