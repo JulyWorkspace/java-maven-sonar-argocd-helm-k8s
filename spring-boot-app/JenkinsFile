@@ -17,7 +17,7 @@ pipeline{
         }
         steps{
           withCredentials([string(credentialsId: 'Local_sonar_token', variable: 'SONAR_TOKEN')]) {
-            sh 'cd spring-boot-app && mvn -X sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host_url=$"{SONAR_URL}'
+            sh 'cd spring-boot-app && mvn -X sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=${SONAR_URL}'
           }
         }
 
