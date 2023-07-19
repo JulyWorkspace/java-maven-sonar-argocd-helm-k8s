@@ -16,14 +16,24 @@ pipeline{
           SONAR_URL = "http://35.203.29.128:9000"
         }
         steps{
-          withCredentials([string(credentialsId: 'SONAR_AUTH_TOKEN', variable: 'SONAR_TOKEN')]) {
-            sh 'cd spring-boot-app && mvn -X sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=${SONAR_URL}'
+            script{
+              withCredentials([string(credentialsId: 'SONAR_AUTH_TOKEN', variable: 'SONAR_TOKEN')]) {
+                sh 'cd spring-boot-app && mvn -X sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=${SONAR_URL}'
+              }
+               timeout(time: 1, unit: 'HOURS') {
+                      def qg = waitForQualityGate()
+                      if (qg.status != 'OK') {
+                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                }
+            }
           }
-        }
 
       }
     }
 }
+     
+
      
 
 
