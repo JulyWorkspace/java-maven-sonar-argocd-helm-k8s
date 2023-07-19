@@ -44,10 +44,28 @@ pipeline{
           }
         }
       }
+      stage('Update Deployment File') {
+        environment {
+            GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
+            GIT_USER_NAME = "gauravumrane29"
+        }
+        steps {
+            withCredentials([string(credentialsId: 'github-token', variable: 'github-token')]) {
+                sh '''
+                    git config user.email "gaurav.umranegmail.com"
+                    git config user.name "gauravumrane29"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
+                    git add spring-boot-app-manifests/deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                '''
+            }
+        }
     }
+  }
 }
      
-
      
 
 
