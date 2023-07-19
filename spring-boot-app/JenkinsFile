@@ -8,7 +8,7 @@ pipeline{
     stages{
       stage("Build and Test"){
         steps{
-          sh 'cd spring-boot-app && mvn clean package'
+          sh 'cd spring-boot-app && mvn -X clean package'
         }
       }
       stage("Static Code Analysis"){
@@ -17,7 +17,7 @@ pipeline{
         }
         steps{
           withCredentials([string(credentialsId: 'Local_sonar_token', variable: 'SONAR_TOKEN')]) {
-            sh 'cd spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host_url=$"{SONAR_URL}'
+            sh 'cd spring-boot-app && mvn -X sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host_url=$"{SONAR_URL}'
           }
         }
 
