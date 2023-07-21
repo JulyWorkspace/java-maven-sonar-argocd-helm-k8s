@@ -47,10 +47,10 @@ pipeline{
       stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "java-maven-sonar-argocd-helm-k8s"
-            GIT_USER_NAME = "JulyWorkspace"
+            GIT_USER_NAME = "gauravumrane29/JulyWorkspace"
         }
         steps {
-            withCredentials([string(credentialsId: 'github-token', variable: 'github-token')]) {
+            withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                     git config user.email "gaurav.umrane@gmail.com"
                     git config user.name "gauravumrane29"
@@ -59,7 +59,8 @@ pipeline{
                     git add spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     // git push https://${github-token}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
-                    git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
+                    // git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git
                 '''
             }
         }
