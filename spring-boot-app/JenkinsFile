@@ -60,7 +60,7 @@ pipeline{
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     
                     // git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
-                    git remote set-url origin https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
+                    git remote add origin https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
                     git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
                 '''
             }
