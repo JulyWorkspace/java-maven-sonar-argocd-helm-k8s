@@ -47,7 +47,7 @@ pipeline{
       stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "java-maven-sonar-argocd-helm-k8s"
-            GIT_USER_NAME = "gauravumrane29"
+            GIT_USER_NAME = "JulyWorkspace"
         }
         steps {
             withCredentials([string(credentialsId: 'github-token', variable: 'github-token')]) {
@@ -59,6 +59,7 @@ pipeline{
                     git add spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${github-token}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
+                    //git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
                 '''
             }
         }
