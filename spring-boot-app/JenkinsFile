@@ -61,7 +61,7 @@ pipeline{
                     
                     // git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
                     git remote add origin https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
-                    git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
+                    git push --set-upstream origin master
                 '''
             }
         }
