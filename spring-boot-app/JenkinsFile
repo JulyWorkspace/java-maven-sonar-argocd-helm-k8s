@@ -58,7 +58,7 @@ pipeline{
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
                     git add spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    // git push https://${github-token}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
+                    
                     // git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
                     git remote set-url origin https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
                     git push https://github.com/JulyWorkspace/java-maven-sonar-argocd-helm-k8s.git
@@ -139,6 +139,7 @@ pipeline{
 //                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
 //                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
 //                 '''
+// git push https:${github-token}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
 //             }
 //         }
 //     }
